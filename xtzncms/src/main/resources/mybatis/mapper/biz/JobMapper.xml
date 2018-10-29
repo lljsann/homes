@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by WuJiaTao on 2018-6-29.
+-->
+<mapper namespace="com.chinaxaxt.xtzncms.mapper.biz.JobMapper">
+    <resultMap id="job" type="com.chinaxaxt.xtzncms.entity.biz.Job">
+            <id property="uid" column="uid"/>
+            <result property="name" column="name"/>
+            <result property="address" column="address"/>
+            <result property="duty" column="duty"/>
+            <result property="demand" column="demand"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="columns">
+            `uid` ,`name` ,`address` ,`duty` ,`demand` ,`create_time`
+    </sql>
+
+    <insert id="insert">
+        insert into `t_job`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="address != null">
+                `address`,
+            </if>
+            <if test="duty != null">
+                `duty`,
+            </if>
+            <if test="demand != null">
+                `demand`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+            #{uid} ,
+            </if>
+            <if test="name != null">
+            #{name} ,
+            </if>
+            <if test="address != null">
+            #{address} ,
+            </if>
+            <if test="duty != null">
+            #{duty} ,
+            </if>
+            <if test="demand != null">
+            #{demand} ,
+            </if>
+            <if test="createTime != null">
+            #{createTime} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByUid">
+        delete from `t_job` where `uid` = #{uid}
+    </delete>
+
+    <update id="update">
+        update `t_job`
+        <set>
+           <if test="name != null">
+               `name` = #{name},
+           </if>
+           <if test="address != null">
+               `address` = #{address},
+           </if>
+           <if test="duty != null">
+               `duty` = #{duty},
+           </if>
+           <if test="demand != null">
+               `demand` = #{demand},
+           </if>
+           <if test="createTime != null">
+               `create_time` = #{createTime},
+           </if>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <select id="select" resultMap="job">
+        select
+        <include refid="columns" />
+        from `t_job`
+        <trim prefix="where ">
+            <if test="uid != null">
+                and `uid` = #{uid}
+            </if>
+            <if test="name != null">
+                and `name` = #{name}
+            </if>
+            <if test="address != null">
+                and `address` = #{address}
+            </if>
+            <if test="duty != null">
+                and `duty` = #{duty}
+            </if>
+            <if test="demand != null">
+                and `demand` = #{demand}
+            </if>
+            <if test="createTime != null">
+                and `create_time` = #{createTime}
+            </if>
+        </trim>
+    </select>
+</mapper>

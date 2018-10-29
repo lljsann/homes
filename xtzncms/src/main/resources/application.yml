@@ -1,0 +1,50 @@
+#服务器相关信息
+server:
+  port: 8089
+  servlet:
+    context-path: /xtzncms
+  tomcat: 
+    uri-encoding: UTF-8
+
+spring:
+  profiles:
+    active:
+    - test
+  #http配置
+  http: 
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  #spring-json配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 100Mb
+      max-request-size: 100Mb
+#mybatis配置
+mybatis:
+  config-location: classpath:mybatis/config/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+
+#pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql  
+    
+#Config
+Config:
+  errorNum: 5
+  errorMsg: 您的密码输入错误,账号将被锁定
+  timeSet: 2
+  isAutoLock: 1
+  timeLock: 3
+  imgPath: D:/data/
+  rootName: 协通智能科技网站管理系统
+
+  

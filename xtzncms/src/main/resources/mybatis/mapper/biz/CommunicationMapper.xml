@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by WuJiaTao on 2018-6-27.
+-->
+<mapper namespace="com.chinaxaxt.xtzncms.mapper.biz.CommunicationMapper">
+    <resultMap id="communication" type="com.chinaxaxt.xtzncms.entity.biz.Communication">
+            <id property="uid" column="uid"/>
+            <result property="name" column="name"/>
+            <result property="logo" column="logo"/>
+            <result property="qrCode" column="qr_code"/>
+            <result property="address" column="address"/>
+            <result property="phone" column="phone"/>
+            <result property="fax" column="fax"/>
+            <result property="postCode" column="post_code"/>
+            <result property="email" column="email"/>
+    </resultMap>
+
+    <sql id="columns">
+            `uid` ,`name` ,`logo` ,`qr_code` ,`address` ,`phone` ,`fax` ,`post_code` ,`email`
+    </sql>
+
+    <insert id="insert">
+        insert into `t_communication`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="logo != null">
+                `logo`,
+            </if>
+            <if test="qrCode != null">
+                `qr_code`,
+            </if>
+            <if test="address != null">
+                `address`,
+            </if>
+            <if test="phone != null">
+                `phone`,
+            </if>
+            <if test="fax != null">
+                `fax`,
+            </if>
+            <if test="postCode != null">
+                `post_code`,
+            </if>
+            <if test="email != null">
+                `email`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+            #{uid} ,
+            </if>
+            <if test="name != null">
+            #{name} ,
+            </if>
+            <if test="logo != null">
+            #{logo} ,
+            </if>
+            <if test="qrCode != null">
+            #{qrCode} ,
+            </if>
+            <if test="address != null">
+            #{address} ,
+            </if>
+            <if test="phone != null">
+            #{phone} ,
+            </if>
+            <if test="fax != null">
+            #{fax} ,
+            </if>
+            <if test="postCode != null">
+            #{postCode} ,
+            </if>
+            <if test="email != null">
+            #{email} ,
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update `t_communication`
+        <set>
+	         <if test="name != null">
+	             `name` = #{name},
+	         </if>
+	         <if test="logo != null">
+	             `logo` = #{logo},
+	         </if>
+	         <if test="qrCode != null">
+	             `qr_code` = #{qrCode},
+	         </if>
+	         <if test="address != null">
+	             `address` = #{address},
+	         </if>
+	         <if test="phone != null">
+	             `phone` = #{phone},
+	         </if>
+	         <if test="fax != null">
+	             `fax` = #{fax},
+	         </if>
+	         <if test="postCode != null">
+	             `post_code` = #{postCode},
+	         </if>
+	         <if test="email != null">
+	             `email` = #{email},
+	         </if>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <select id="select" resultMap="communication">
+        select
+        <include refid="columns" />
+        from `t_communication`
+        <trim prefix="where ">
+            <if test="uid != null">
+                and `uid` = #{uid}
+            </if>
+            <if test="name != null">
+                and `name` = #{name}
+            </if>
+            <if test="logo != null">
+                and `logo` = #{logo}
+            </if>
+            <if test="qrCode != null">
+                and `qr_code` = #{qrCode}
+            </if>
+            <if test="address != null">
+                and `address` = #{address}
+            </if>
+            <if test="phone != null">
+                and `phone` = #{phone}
+            </if>
+            <if test="fax != null">
+                and `fax` = #{fax}
+            </if>
+            <if test="postCode != null">
+                and `post_code` = #{postCode}
+            </if>
+            <if test="email != null">
+                and `email` = #{email}
+            </if>
+        </trim>
+    </select>
+</mapper>

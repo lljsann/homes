@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by WuJiaTao on 2018-6-25.
+-->
+<mapper namespace="com.chinaxaxt.xtzncms.mapper.biz.CompanyNewsMapper">
+    <resultMap id="companyNews" type="com.chinaxaxt.xtzncms.entity.biz.CompanyNews">
+            <id property="uid" column="uid"/>
+            <result property="title" column="title"/>
+            <result property="remark" column="remark"/>
+            <result property="type" column="type"/>
+            <result property="imageUrl" column="image_url"/>
+            <result property="author" column="author"/>
+            <result property="context" column="context"/>
+            <result property="createTime" column="create_time"/>
+            <result property="hitCount" column="hit_count"/>
+            <result property="applaudCount" column="applaud_count"/>
+    </resultMap>
+
+    <sql id="columns">
+            `uid` ,`title` ,`remark` ,`type` ,`image_url` ,`author` ,`context` ,`create_time` ,`hit_count` ,`applaud_count`
+    </sql>
+
+    <insert id="insert">
+        insert into `t_company_news`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="title != null">
+                `title`,
+            </if>
+            <if test="remark != null">
+                `remark`,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="imageUrl != null">
+                `image_url`,
+            </if>
+            <if test="author != null">
+                `author`,
+            </if>
+            <if test="context != null">
+                `context`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+            <if test="hitCount != null">
+                `hit_count`,
+            </if>
+            <if test="applaudCount != null">
+                `applaud_count`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+            #{uid} ,
+            </if>
+            <if test="title != null">
+            #{title} ,
+            </if>
+            <if test="remark != null">
+            #{remark} ,
+            </if>
+            <if test="type != null">
+            #{type} ,
+            </if>
+            <if test="imageUrl != null">
+            #{imageUrl} ,
+            </if>
+            <if test="author != null">
+            #{author} ,
+            </if>
+            <if test="context != null">
+            #{context} ,
+            </if>
+            <if test="createTime != null">
+            #{createTime} ,
+            </if>
+            <if test="hitCount != null">
+            #{hitCount} ,
+            </if>
+            <if test="applaudCount != null">
+            #{applaudCount} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByUid">
+        delete from `t_company_news` where `uid` = #{uid}
+    </delete>
+    
+    <update id="updateContext">
+    	update `t_company_news` set `context` = #{context} where `uid` = #{uid}
+    </update>
+    
+    <update id="updateHitCount">
+    	update `t_company_news` set `hit_count` = `hit_count`+1 where `uid` = #{uid}
+    </update>
+    
+    <update id="updateApplaudCount">
+    	update `t_company_news` set `applaud_count` = `applaud_count`+1 where `uid` = #{uid}
+    </update>
+    
+    <update id="update">
+        update `t_company_news`
+        <set>
+            <if test="title != null">
+                `title` = #{title},
+            </if>
+            <if test="remark != null">
+                `remark` = #{remark},
+            </if>
+            <if test="type != null">
+                `type` = #{type},
+            </if>
+            <if test="imageUrl != null">
+                `image_url` = #{imageUrl},
+            </if>
+            <if test="author != null">
+                `author` = #{author},
+            </if>
+            <if test="context != null">
+                `context` = #{context},
+            </if>
+            <if test="createTime != null">
+                `create_time` = #{createTime},
+            </if>
+            <if test="hitCount != null">
+                `hit_count` = #{hitCount},
+            </if>
+            <if test="applaudCount != null">
+                `applaud_count` = #{applaudCount},
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+    
+    <select id="selectNewsByTime" resultMap="companyNews">
+    	select `uid`,`title`,`remark`,`image_url`,`create_time` from t_company_news order By create_time DESC limit 4
+    </select>
+
+    <select id="select" resultMap="companyNews">
+        select
+        <include refid="columns" />
+        from `t_company_news`
+        <trim prefix="where "> 
+            <if test="uid != null">
+                and `uid` = #{uid}
+            </if>
+            <if test="title != null">
+                and `title` = #{title}
+            </if>
+            <if test="remark != null">
+                and `remark` = #{remark}
+            </if>
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+            <if test="imageUrl != null">
+                and `image_url` = #{imageUrl}
+            </if>
+            <if test="author != null">
+                and `author` = #{author}
+            </if>
+            <if test="context != null">
+                and `context` = #{context}
+            </if>
+            <if test="createTime != null">
+                and `create_time` = #{createTime}
+            </if>
+            <if test="hitCount != null">
+                and `hit_count` = #{hitCount}
+            </if>
+            <if test="applaudCount != null">
+                and `applaud_count` = #{applaudCount}
+            </if>
+        </trim>
+    </select>
+</mapper>

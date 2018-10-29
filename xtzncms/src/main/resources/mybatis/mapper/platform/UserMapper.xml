@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by WuJiaTao on 2018-6-25.
+-->
+<mapper namespace="com.chinaxaxt.xtzncms.mapper.platform.UserMapper">
+    <resultMap id="user" type="com.chinaxaxt.xtzncms.entity.platform.User">
+            <id property="uid" column="uid"/>
+            <result property="name" column="name"/>
+            <result property="account" column="account"/>
+            <result property="password" column="password"/>
+            <result property="post" column="post"/>
+    </resultMap>
+    <sql id="columns">
+            `uid` ,`name` ,`account` ,`password` ,`post` 
+    </sql>
+    
+     <insert id="insert">
+        insert into `t_user`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="account != null">
+                `account`,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="post != null">
+                `post`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+            #{uid} ,
+            </if>
+            <if test="account != null">
+            #{account} ,
+            </if>
+            <if test="password != null">
+            #{password} ,
+            </if>
+            <if test="name != null">
+            #{name} ,
+            </if>
+            <if test="post != null">
+                #{post},
+            </if>
+        </trim>
+    </insert>
+    
+    
+     <update id="update">
+        update `t_user`
+        <set>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="post != null">
+                `post` = #{post},
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+    
+    
+     <select id="findUserInUids" resultMap="user">
+        select 
+        	`uid` ,`name` ,`account`  ,`birthday`,`sex` ,`political` ,`organization` ,`post` ,`id_card` ,`email` ,`mobile` ,`portrait_url`,`is_sys`
+        from  `t_user`
+        where 
+          `uid` in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+        #{id}
+        </foreach>
+    </select>
+    
+    <update id="updatePasswordByIds">
+    	update `t_user` set `password`=#{password} where `uid` in
+    	<foreach collection="ids" open="(" item="id" separator="," close=")">
+        #{id}
+        </foreach>
+    </update>
+    
+</mapper>

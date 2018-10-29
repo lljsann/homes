@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by WuJiaTao on 2018-6-29.
+-->
+<mapper namespace="com.chinaxaxt.xtzncms.mapper.biz.CompanyProfileMapper">
+    <resultMap id="companyProfile" type="com.chinaxaxt.xtzncms.entity.biz.CompanyProfile">
+            <id property="uid" column="uid"/>
+            <result property="content" column="content"/>
+            <result property="slogan" column="slogan"/>
+            <result property="image" column="image"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="columns">
+            `uid` ,`content` ,`slogan` ,`image` ,`create_time`
+    </sql>
+
+    <insert id="insert">
+        insert into `t_company_profile`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="content != null">
+                `content`,
+            </if>
+            <if test="slogan != null">
+                `slogan`,
+            </if>
+            <if test="image != null">
+                `image`,
+            </if>
+            <if test="createTime != null">
+                `create_time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+            #{uid} ,
+            </if>
+            <if test="content != null">
+            #{content} ,
+            </if>
+            <if test="slogan != null">
+            #{slogan} ,
+            </if>
+            <if test="image != null">
+            #{image} ,
+            </if>
+            <if test="createTime != null">
+            #{createTime} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByUid">
+        delete from `t_company_profile` where `uid` = #{uid}
+    </delete>
+
+    <update id="update">
+        update `t_company_profile`
+        <set>
+                <if test="content != null">
+                    `content` = #{content},
+                </if>
+                <if test="slogan != null">
+                    `slogan` = #{slogan},
+                </if>
+                <if test="image != null">
+                    `image` = #{image},
+                </if>
+                <if test="createTime != null">
+              		`create_time` = #{createTime},
+          		</if>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <select id="select" resultMap="companyProfile">
+        select
+        <include refid="columns" />
+        from `t_company_profile`
+        <trim prefix="where ">
+            <if test="uid != null">
+                and `uid` = #{uid}
+            </if>
+            <if test="content != null">
+                and `content` = #{content}
+            </if>
+            <if test="slogan != null">
+                and `slogan` = #{slogan}
+            </if>
+            <if test="image != null">
+                and `image` = #{image}
+            </if>
+            <if test="createTime != null">
+                and `create_time` = #{createTime}
+            </if>
+        </trim>
+    </select>
+</mapper>
